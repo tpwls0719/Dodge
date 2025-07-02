@@ -2,18 +2,30 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody playerRigidbody;
+    private Rigidbody playerRigidbody;
     public float speed = 8f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow) == true)
+        float xInput = Input.GetAxis("Horizontal");
+        Debug.Log("xInput: " + xInput);
+
+        float zInput = Input.GetAxis("Vertical");
+        Debug.Log("zInput: " + zInput);
+
+        float xspeed = xInput * speed;
+        float zspeed = zInput * speed;
+
+        Vector3 newVelocity = new Vector3(xspeed, 0f, zspeed);
+        playerRigidbody.linearVelocity = newVelocity;
+
+        /*if (Input.GetKey(KeyCode.UpArrow) == true)
         {
             playerRigidbody.AddForce(0f, 0f, speed);
         }
@@ -27,11 +39,11 @@ public class PlayerController : MonoBehaviour
         {
             playerRigidbody.AddForce(speed, 0f, 0f);
         }
-        
+
         if (Input.GetKey(KeyCode.LeftArrow) == true)
         {
             playerRigidbody.AddForce(-speed, 0f, 0f);
-        }
-        
+        }*/
+
     }
 }
